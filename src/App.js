@@ -21,7 +21,6 @@ const App = () => {
   const [recieverId, setRecieverId] = useState();
   const [socketListening, setSocketListening] = useState(false);
 
-  const chatRoom = 1;
 
   useEffect(() => {
     socket.on('privateMessage', message => {
@@ -114,7 +113,7 @@ const App = () => {
       <input
         type="text"
         placeholder="Enter Id"
-        value={recieverId}
+        value={senderId}
         onChange={handleSenderIdInput}
       />
       <button onClick={listenForMessages}>Click to start Listening</button>
@@ -123,7 +122,7 @@ const App = () => {
       <input
         type="text"
         placeholder="Enter Id"
-        value={senderId}
+        value={recieverId}
         onChange={handleRecieverIdInput}
       />
       <br/><br/>
