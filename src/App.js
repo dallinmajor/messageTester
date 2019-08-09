@@ -60,14 +60,15 @@ const App = () => {
       setMessages([message, ...messages]);
       socket.emit('message', {
         message,
-        room: chatRoom
+        chatroomId: chatRoomId,
+        recieverId: recieverId
       });
       event.target.value = '';
     }
   };
 
   function listenForMessages() {
-    socket.on('private_message_' + recieverId, message => {
+    socket.on('private_message_' + senderId, message => {
       console.log(message);
       setMessages([message, ...messages]);
     });
@@ -86,11 +87,7 @@ const App = () => {
 
   function handleRecieverIdInput(e) {
     const value = e.target.value;
-    if (e.keyCode === 13 && value) {
-      listenForMessages();
-    } else {
-      setRecieverId(value);
-    }
+    setRecieverId(value);
   }
 
   const messageList = messages.map((message, index) => {
@@ -118,15 +115,16 @@ const App = () => {
         type="text"
         placeholder="Enter Id"
         value={recieverId}
-        onChange={handleRecieverIdInput}
+        onChange={handleSenderIdInput}
       />
+      <button onClick={listenForMessages}>Click to start Listening</button>
       <br/><br/>
-     <div>Agent id</div>
+     <div>User id</div>
       <input
         type="text"
         placeholder="Enter Id"
         value={senderId}
-        onChange={handleSenderIdInput}
+        onChange={handleRecieverIdInput}
       />
       <br/><br/>
       <input
