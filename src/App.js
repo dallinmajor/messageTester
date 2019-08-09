@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import socketIO from 'socket.io-client';
+import axios from 'axios';
 import './App.css';
 
 const socket = socketIO('http://localhost:5000/', {
@@ -32,6 +33,17 @@ const App = () => {
       socket.removeAllListeners('privateMessage');
     };
   }, [messages]);
+
+  useEffect(() => {
+    logUser();
+  });
+
+  async function logUser() {
+    axios.get('http://localhost:5000/api/user/get/all')
+      .then(data => {
+        console.log(data.data)
+      })
+  }
 
 
   const handleSubmit = event => {
@@ -106,7 +118,7 @@ const App = () => {
         type="text"
         placeholder="Enter Id"
         value={recieverId}
-        onKeyUp={handleRecieverIdInput}
+        onChange={handleRecieverIdInput}
       />
       <br/><br/>
      <div>Agent id</div>
@@ -114,7 +126,7 @@ const App = () => {
         type="text"
         placeholder="Enter Id"
         value={senderId}
-        onKeyUp={handleSenderIdInput}
+        onChange={handleSenderIdInput}
       />
       <br/><br/>
       <input
