@@ -21,7 +21,6 @@ const App = () => {
   const [recieverId, setRecieverId] = useState('5d48eb6d9d42a66fb33452be');
   const [socketListening, setSocketListening] = useState(false);
 
-
   useEffect(() => {
     socket.on('privateMessage', message => {
       console.log(message);
@@ -38,12 +37,10 @@ const App = () => {
   });
 
   async function logUser() {
-    axios.get('http://localhost:5000/api/user/get/all')
-      .then(data => {
-        console.log(data.data)
-      })
+    axios.get('http://localhost:5000/api/user/get/all').then(data => {
+      console.log(data.data);
+    });
   }
-
 
   const handleSubmit = event => {
     const body = event.target.value;
@@ -98,7 +95,7 @@ const App = () => {
   });
 
   return (
-    <div className='container'>
+    <div className="container">
       <h1>Hello World!</h1>
       <div>Enter Chatroom Id</div>
       <input
@@ -107,9 +104,10 @@ const App = () => {
         value={chatroomId}
         onChange={handleChatroomInput}
       />
-      <br/><br/>
+      <br />
+      <br />
       <div>Socket {socketListening ? 'ON' : 'OFF'}</div>
-     <div>give Agent Id to initialize Socket</div>
+      <div>give Agent Id to initialize Socket</div>
       <input
         type="text"
         placeholder="Enter Id"
@@ -117,23 +115,25 @@ const App = () => {
         onChange={handleSenderIdInput}
       />
       <button onClick={listenForMessages}>Click to start Listening</button>
-      <br/><br/>
-     <div>User id</div>
+      <br />
+      <br />
+      <div>User id</div>
       <input
         type="text"
         placeholder="Enter Id"
         value={recieverId}
         onChange={handleRecieverIdInput}
       />
-      <br/><br/>
+      <br />
+      <br />
       <input
         type="text"
         placeholder="Enter a message..."
         onKeyUp={handleSubmit}
       />
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
       {messageList}
     </div>
   );
