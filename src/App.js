@@ -60,7 +60,7 @@ const App = () => {
       setMessages([message, ...messages]);
       socket.emit('message', {
         message,
-        chatroomId: chatRoomId,
+        chatroomId: chatroomId,
         recieverId: recieverId
       });
       event.target.value = '';
