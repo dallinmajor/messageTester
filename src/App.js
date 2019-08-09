@@ -16,9 +16,9 @@ socket.on('connect', () => {
 
 const App = () => {
   const [messages, setMessages] = useState([]);
-  const [chatroomId, setChatroomId] = useState();
-  const [senderId, setSenderId] = useState();
-  const [recieverId, setRecieverId] = useState();
+  const [chatroomId, setChatroomId] = useState('5d48eb6d9d42a66fb33452c3');
+  const [senderId, setSenderId] = useState("5d48eb6d9d42a66fb33452b7");
+  const [recieverId, setRecieverId] = useState('5d48eb6d9d42a66fb33452be');
   const [socketListening, setSocketListening] = useState(false);
 
 
@@ -51,7 +51,7 @@ const App = () => {
       const message = {
         text: body,
         user: {
-          _id: 24601
+          _id: senderId
         },
         createdAt: new Date(),
         _id: Math.floor(Math.random() * 1000000 + 1)
@@ -67,7 +67,7 @@ const App = () => {
   };
 
   function listenForMessages() {
-    socket.on('private_message_' + senderId, message => {
+    socket.on(`${'private_message_'}${senderId}`, message => {
       console.log(message);
       setMessages([message, ...messages]);
     });
